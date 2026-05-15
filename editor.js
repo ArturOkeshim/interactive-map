@@ -41,7 +41,7 @@
   mapImage.addEventListener("error", function () {
     if (mapImage.dataset.fallback) return;
     mapImage.dataset.fallback = "1";
-    mapImage.src = "BAJQWt99bt08L6GIQfa5b_HQ9TRnUW.png";
+    mapImage.src = "BAJQWt99bt08L6GIQfa5b_HQ9TRnUW.webp";
   });
 
   mapImage.addEventListener("load", onLayoutChange);
