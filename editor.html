@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактор координат — парк Лужники</title>
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body class="editor">
+    <aside class="editor__sidebar" aria-label="Список объектов">
+      <header class="editor__head">
+        <h1 class="editor__title">Координаты объектов</h1>
+        <p class="editor__lead">
+          Выберите объект в списке и кликните по карте. Координаты — проценты, как в
+          <code>park-data.js</code>.
+        </p>
+      </header>
+
+      <label class="editor__field">
+        <span class="editor__label">Справочник</span>
+        <select id="registrySelect" class="editor__select">
+          <option value="PARK_OBJECTS_2">PARK_OBJECTS_2 (новый)</option>
+          <option value="PARK_OBJECTS">PARK_OBJECTS</option>
+        </select>
+      </label>
+
+      <label class="editor__field">
+        <span class="editor__label">Поиск</span>
+        <input
+          id="searchInput"
+          class="editor__input"
+          type="search"
+          placeholder="id или название…"
+          autocomplete="off"
+        />
+      </label>
+
+      <div class="editor__stats" id="statsBar" aria-live="polite"></div>
+
+      <ul class="editor__list" id="objectList"></ul>
+
+      <footer class="editor__actions">
+        <button type="button" class="editor__btn editor__btn--primary" id="exportBtn">
+          Скачать park-data.js
+        </button>
+        <button type="button" class="editor__btn" id="copyFileBtn">
+          Копировать файл
+        </button>
+        <button type="button" class="editor__btn" id="resetDraftBtn" title="Сбросить черновик и перечитать park-data.js">
+          Сбросить черновик
+        </button>
+        <a class="editor__link" href="index.html">← К карте</a>
+      </footer>
+    </aside>
+
+    <main class="editor__map-wrap">
+      <div class="editor__toolbar" id="toolbar">
+        <span class="editor__toolbar-label">Выбран:</span>
+        <strong id="selectedTitle">—</strong>
+        <span class="editor__coords" id="selectedCoords"></span>
+        <label class="editor__size" id="sizeControl" hidden>
+          <span class="editor__size-label">Кружок</span>
+          <button type="button" class="editor__size-step" id="sizeDownBtn" aria-label="Уменьшить">−</button>
+          <input type="range" id="sizeRange" min="8" max="48" step="1" value="22" />
+          <input
+            type="number"
+            id="sizeNumber"
+            class="editor__size-num"
+            min="8"
+            max="48"
+            step="1"
+            value="22"
+            aria-label="Размер в пикселях"
+          />
+          <span class="editor__size-unit">px</span>
+          <button type="button" class="editor__size-step" id="sizeUpBtn" aria-label="Увеличить">+</button>
+        </label>
+        <button type="button" class="editor__btn editor__btn--sm" id="clearCoordsBtn" title="Сбросить x/y в 0">
+          Сбросить точку
+        </button>
+        <button type="button" class="editor__btn editor__btn--sm" id="prevBtn" title="Предыдущий (P)">
+          ← Пред.
+        </button>
+        <button type="button" class="editor__btn editor__btn--sm" id="nextBtn" title="Следующий без координат (N)">
+          След. →
+        </button>
+      </div>
+
+      <div class="editor__scene" id="scene">
+        <img
+          class="editor__image"
+          id="mapImage"
+          src="img/BAJQWt99bt08L6GIQfa5b_HQ9TRnUW.png"
+          alt="Вид на парк сверху"
+          width="3500"
+          height="1969"
+          draggable="false"
+        />
+        <div class="editor__markers" id="markers" aria-hidden="true"></div>
+        <div class="editor__crosshair" id="crosshair" hidden aria-hidden="true"></div>
+      </div>
+
+      <p class="editor__hint">
+        Клик по карте — поставить точку. Перетаскивание — уточнить позицию. Ползунок «Кружок» —
+        размер маркера (<kbd>[</kbd> / <kbd>]</kbd>). <kbd>N</kbd> / <kbd>P</kbd> — следующий /
+        предыдущий объект.
+      </p>
+    </main>
+
+    <script src="park-data.js"></script>
+    <script src="map-geometry.js"></script>
+    <script src="editor.js"></script>
+  </body>
+</html>

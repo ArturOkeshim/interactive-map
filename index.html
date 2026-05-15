@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Парк — карта объектов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scene" id="scene">
+      <img
+        class="scene__image"
+        src="img/BAJQWt99bt08L6GIQfa5b_HQ9TRnUW.png"
+        alt="Вид на парк сверху"
+        width="3500"
+        height="1969"
+        draggable="false"
+      />
+      <div class="scene__markers" id="markers" aria-hidden="true"></div>
+    </div>
+
+    <div
+      class="card-backdrop"
+      id="cardBackdrop"
+      hidden
+      aria-hidden="true"
+    ></div>
+
+    <article class="card" id="card" hidden aria-live="polite">
+      <button type="button" class="card__close" id="cardClose" aria-label="Закрыть">
+        ×
+      </button>
+      <h2 class="card__title" id="cardTitle"></h2>
+      <dl class="card__metrics" id="cardMetrics"></dl>
+      <p class="card__note" id="cardNote" hidden></p>
+    </article>
+
+    <div class="coord-hud" id="coordHud" hidden>
+      <div class="coord-hud__head">
+        <span class="coord-hud__title">Координаты, %</span>
+        <button type="button" class="coord-hud__hide" id="coordHudHide" aria-label="Скрыть панель">
+          ×
+        </button>
+      </div>
+      <div class="coord-hud__values" id="coordHudValues">наведите на карту</div>
+      <button type="button" class="coord-hud__btn" id="coordHudCopy">
+        Копировать строки x / y
+      </button>
+      <p class="coord-hud__hint">
+        Совпадает с полями <code>x</code> и <code>y</code> в <code>park-data.js</code>. Включение:
+        <code>?debug=1</code> в адресе или <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd>.
+      </p>
+    </div>
+
+    <script src="park-data.js"></script>
+    <script src="map-geometry.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

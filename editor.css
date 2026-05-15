@@ -1,0 +1,383 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+.editor {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.editor__sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid #334155;
+  background: #1e293b;
+}
+
+.editor__head {
+  padding: 1rem 1rem 0.5rem;
+}
+
+.editor__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.editor__lead {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.editor__lead code {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.editor__field {
+  display: block;
+  padding: 0 1rem 0.65rem;
+}
+
+.editor__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+}
+
+.editor__select,
+.editor__input {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: #f8fafc;
+  background: #0f172a;
+}
+
+.editor__select:focus,
+.editor__input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.editor__stats {
+  padding: 0 1rem 0.5rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.editor__stats strong {
+  color: #fbbf24;
+}
+
+.editor__list {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.5rem 0.5rem;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.editor__item {
+  margin-bottom: 2px;
+}
+
+.editor__item-btn {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 0.5rem;
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-align: left;
+  font: inherit;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.editor__item-btn:hover {
+  background: #334155;
+}
+
+.editor__item--active .editor__item-btn {
+  border-color: #3b82f6;
+  background: #1e3a5f;
+}
+
+.editor__item--placed .editor__item-id::before {
+  content: "● ";
+  color: #4ade80;
+}
+
+.editor__item--empty .editor__item-id::before {
+  content: "○ ";
+  color: #64748b;
+}
+
+.editor__item-title {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: #94a3b8;
+}
+
+.editor__item-id {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+.editor__item-coords {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: #fbbf24;
+}
+
+.editor__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid #334155;
+}
+
+.editor__btn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  background: #334155;
+  cursor: pointer;
+}
+
+.editor__btn:hover {
+  background: #475569;
+}
+
+.editor__btn--primary {
+  border-color: #2563eb;
+  color: #fff;
+  background: #2563eb;
+}
+
+.editor__btn--primary:hover {
+  background: #1d4ed8;
+}
+
+.editor__btn--sm {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+.editor__link {
+  font-size: 0.82rem;
+  color: #60a5fa;
+  text-align: center;
+}
+
+.editor__map-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #334155;
+  background: #1e293b;
+  font-size: 0.85rem;
+}
+
+.editor__toolbar-label {
+  color: #94a3b8;
+}
+
+.editor__coords {
+  font-family: ui-monospace, monospace;
+  color: #fbbf24;
+}
+
+.editor__size {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.25rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #0f172a;
+  font-size: 0.78rem;
+}
+
+.editor__size-label {
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.editor__size input[type="range"] {
+  width: 88px;
+  accent-color: #3b82f6;
+}
+
+.editor__size-num {
+  width: 3rem;
+  padding: 0.15rem 0.25rem;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-family: ui-monospace, monospace;
+  color: #f8fafc;
+  background: #1e293b;
+  text-align: center;
+}
+
+.editor__size-unit {
+  color: #64748b;
+}
+
+.editor__size-step {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1;
+  color: #e2e8f0;
+  background: #334155;
+  cursor: pointer;
+}
+
+.editor__size-step:hover {
+  background: #475569;
+}
+
+.editor__scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.editor__scene--dragging {
+  cursor: grabbing;
+}
+
+.editor__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.editor__markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.editor__marker {
+  pointer-events: auto;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.85);
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: box-shadow 0.12s ease;
+}
+
+.editor__marker--dim {
+  background: rgba(148, 163, 184, 0.7);
+  cursor: pointer;
+}
+
+.editor__marker--selected {
+  background: rgba(251, 191, 36, 0.95);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.35);
+  z-index: 2;
+  cursor: grab;
+}
+
+.editor__marker--selected:active {
+  cursor: grabbing;
+}
+
+.editor__crosshair {
+  position: absolute;
+  border: 2px solid #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.5);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.editor__hint {
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #0f172a;
+}
+
+.editor__hint kbd {
+  padding: 0.1em 0.35em;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  font-size: 0.9em;
+  background: #1e293b;
+}
+
+@media (max-width: 720px) {
+  .editor {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .editor__sidebar {
+    max-height: 42vh;
+  }
+}
