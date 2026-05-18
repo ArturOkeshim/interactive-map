@@ -9,7 +9,7 @@
 
   var scene = document.getElementById("scene");
   var mapImage = scene && scene.querySelector(".scene__image");
-  var items = window.PARK_OBJECTS_3 || [];
+  var items = window.PARK_OBJECTS || [];
   var activeId = null;
   var markerEls = {};
 

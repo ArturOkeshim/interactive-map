@@ -5,7 +5,6 @@
   var MIN_SIZE = 8;
   var MAX_SIZE = 48;
 
-  var registrySelect = document.getElementById("registrySelect");
   var searchInput = document.getElementById("searchInput");
   var statsBar = document.getElementById("statsBar");
   var objectList = document.getElementById("objectList");
@@ -27,12 +26,7 @@
   var sizeDownBtn = document.getElementById("sizeDownBtn");
   var sizeUpBtn = document.getElementById("sizeUpBtn");
 
-  var data = {
-    PARK_OBJECTS: cloneList(window.PARK_OBJECTS),
-    PARK_OBJECTS_2: cloneList(window.PARK_OBJECTS_2),
-  };
-
-  var registry = "PARK_OBJECTS_2";
+  var objects = cloneList(window.PARK_OBJECTS);
   var selectedId = null;
   var markerEls = {};
   var dragState = null;
@@ -52,7 +46,7 @@
   }
 
   function currentList() {
-    return data[registry] || [];
+    return objects;
   }
 
   function findObject(id) {
@@ -131,8 +125,7 @@
         DRAFT_KEY,
         JSON.stringify({
           savedAt: Date.now(),
-          data: data,
-          registry: registry,
+          objects: objects,
           selectedId: selectedId,
         })
       );
@@ -144,15 +137,14 @@
       var raw = window.localStorage.getItem(DRAFT_KEY);
       if (!raw) return false;
       var draft = JSON.parse(raw);
-      if (!draft || !draft.data) return false;
+      if (!draft || (!draft.objects && !draft.data)) return false;
       var ok = window.confirm(
         "Найден сохранённый черновик (" +
           new Date(draft.savedAt).toLocaleString("ru-RU") +
           "). Восстановить?"
       );
       if (!ok) return false;
-      data = draft.data;
-      if (draft.registry) registry = draft.registry;
+      objects = draft.objects || draft.data.PARK_OBJECTS || draft.data.PARK_OBJECTS_2 || [];
       if (draft.selectedId) selectedId = draft.selectedId;
       return true;
     } catch (e) {
@@ -171,10 +163,7 @@
     try {
       window.localStorage.removeItem(DRAFT_KEY);
     } catch (e) {}
-    data = {
-      PARK_OBJECTS: cloneList(window.PARK_OBJECTS),
-      PARK_OBJECTS_2: cloneList(window.PARK_OBJECTS_2),
-    };
+    objects = cloneList(window.PARK_OBJECTS);
     selectedId = null;
     renderAll();
   }
@@ -409,10 +398,7 @@
     return (
       "/* Координаты x/y — проценты от области картинки (левый верх = 0,0). size — диаметр маркера в px (по умолчанию 22). */\n" +
       "window.PARK_OBJECTS = " +
-      serializeArray(data.PARK_OBJECTS) +
-      ";\n\n\n" +
-      "window.PARK_OBJECTS_2 = " +
-      serializeArray(data.PARK_OBJECTS_2) +
+      serializeArray(objects) +
       ";\n"
     );
   }
@@ -443,7 +429,6 @@
   }
 
   function renderAll() {
-    registrySelect.value = registry;
     renderList();
     renderMarkers();
     updateToolbar();
@@ -451,17 +436,6 @@
   }
 
   loadDraft();
-
-  var params = new URLSearchParams(window.location.search);
-  if (params.get("registry") === "1") registry = "PARK_OBJECTS";
-  if (params.get("registry") === "2") registry = "PARK_OBJECTS_2";
-
-  registrySelect.addEventListener("change", function () {
-    registry = registrySelect.value;
-    selectedId = null;
-    renderAll();
-    scheduleSave();
-  });
 
   searchInput.addEventListener("input", renderList);
 
@@ -562,7 +536,7 @@
 
   renderAll();
 
-  if (!selectedId && registry === "PARK_OBJECTS_2") {
+  if (!selectedId) {
     var firstEmpty = currentList().find(function (o) {
       return !isPlaced(o);
     });
